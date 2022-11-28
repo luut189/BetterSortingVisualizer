@@ -21,6 +21,10 @@ If you're using **Visual Studio Code**:
 
 - Your best bet is probably using your personal `settings.json` file.
 
+If you're using **Replit**:
+
+- I have it setup on **Replit** so you can just press `Run`.
+
 If you're running it via **Terminal** because you think you're cool:
 
 ```
