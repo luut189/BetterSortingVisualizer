@@ -38,8 +38,8 @@ public class Frame extends JFrame {
         keybind = new JTextArea("R - Start sorting\n" +
                                 "Q - Pause the sorting process\n" +
                                 "Space - Shuffle the array\n" +
-                                "W - Increase array\' length\n" +
-                                "S - Decrease array\' length\n\n" +
+                                "W - Increase array\'s length\n" +
+                                "S - Decrease array\'s length\n\n" +
                                 "Number of Algorithms: " + panel.getNumOfAlgorithm() + "\n" +
                                 "A - Previous Algorithm\n" +
                                 "D - Next Algorithm\n");
