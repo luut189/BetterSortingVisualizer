@@ -42,12 +42,13 @@ public class MergeSort extends Sort {
         int i = 0, j = 0, k = left;
 
         while(i < leftLength && j < rightLength) {
-            checkingIndex = i + k - 1;
-            searchingIndex = j + k - 1;
+            checkingIndex = k;
             if(leftArr[i] < rightArr[j]) {
+                searchingIndex = i + k;
                 arr[k] = leftArr[i];
                 i++;
             } else {
+                searchingIndex = j + k;
                 arr[k] = rightArr[j];
                 j++;
             }
@@ -57,6 +58,8 @@ public class MergeSort extends Sort {
         }
 
         while(i < leftLength) {
+            checkingIndex = k;
+            searchingIndex = i + k;
             arr[k] = leftArr[i];
             i++;
             k++;
@@ -65,6 +68,8 @@ public class MergeSort extends Sort {
         }
 
         while(j < rightLength) {
+            checkingIndex = k;
+            searchingIndex = j + k;
             arr[k] = rightArr[j];
             j++;
             k++;

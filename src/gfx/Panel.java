@@ -1,4 +1,5 @@
 package gfx;
+
 import javax.swing.*;
 
 import algorithm.BubbleSort;
@@ -179,9 +180,9 @@ public class Panel extends JPanel {
             }
             if(isSorting) {
                 if(i == sortList[sorterIndex].getSearchingIndex()) {
-                    g.setColor(Color.red);
-                } else if(i == sortList[sorterIndex].getCheckingIndex()) {
                     g.setColor(Color.green);
+                } else if(i == sortList[sorterIndex].getCheckingIndex()) {
+                    g.setColor(Color.red);
                 }
             }
             if(i < colorIndex + 1 && checkSort(arr)) {
