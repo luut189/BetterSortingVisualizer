@@ -17,6 +17,10 @@ public class Sort {
         this.panel = panel;
         this.delay = delay;
     }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
     
     public int[] swap(int[] arr, int a, int b) {
         int temp = arr[a];

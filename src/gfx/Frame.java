@@ -2,13 +2,19 @@ package gfx;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Frame extends JFrame {
     
-    Panel panel;
-    JPanel control = new JPanel();
-    JLabel title;
-    JTextArea keybind, sorting;
+    private Panel panel;
+    private JPanel control = new JPanel();
+
+    private JLabel title;
+    private JTextArea keybind, sorting;
+
+    private JTextField currentDelay;
+    private JSlider delaySlider;
 
     public Frame(String name, int windowSize) {
         panel = new Panel(windowSize);
@@ -57,9 +63,33 @@ public class Frame extends JFrame {
         sorting.setEditable(false);
         sorting.setFocusable(false);
 
+        currentDelay = new JTextField(10);
+        currentDelay.setText("Current delay: " + panel.getDelay());
+        currentDelay.setHorizontalAlignment(JTextField.CENTER);
+        currentDelay.setBackground(new Color(37, 37, 38));
+        currentDelay.setForeground(Color.white);
+        currentDelay.setFont(new Font("Nunito", Font.BOLD, 12));
+        currentDelay.setEditable(false);
+        currentDelay.setFocusable(false);
+
+        delaySlider = new JSlider(0, 10);
+        delaySlider.setValue(panel.getDelay());
+        delaySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                panel.setDelay(delaySlider.getValue());
+                currentDelay.setText("Current delay: " + panel.getDelay());
+            }
+        });
+        delaySlider.setBackground(new Color(37, 37, 38));
+        delaySlider.setForeground(Color.white);
+        delaySlider.setFocusable(false);
+
         control.add(title, BorderLayout.CENTER);
         control.add(keybind, BorderLayout.CENTER);
         control.add(sorting, BorderLayout.CENTER);
+        control.add(currentDelay, BorderLayout.CENTER);
+        control.add(delaySlider, BorderLayout.CENTER);
     }
 
     public void updateTextArea() {

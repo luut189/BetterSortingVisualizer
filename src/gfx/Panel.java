@@ -206,6 +206,17 @@ public class Panel extends JPanel {
         this.arr[index] = value;
     }
 
+    public int getDelay() {
+        return this.delay;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
+        for(int i = 0; i < getNumOfAlgorithm(); i++) {
+            sortList[i].setDelay(delay);
+        }
+    }
+
     public void setLength(int padding) {
         this.length = (width-padding)/size;
     }
