@@ -6,59 +6,59 @@ import java.awt.event.KeyEvent;
 public class KeyHandler extends KeyAdapter {
 
     private Frame frame;
-    private Panel panel;
+    private Renderer render;
 
-    public KeyHandler(Frame frame, Panel panel) {
+    public KeyHandler(Frame frame, Renderer panel) {
         this.frame = frame;
-        this.panel = panel;
+        this.render = panel;
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch(key) {
             case KeyEvent.VK_R:
-                if(panel.isSorting() || panel.isShuffling()) break;
+                if(render.isSorting() || render.isShuffling()) break;
 
-                panel.sort();
+                render.sort();
                 break;
             case KeyEvent.VK_Q:
-                panel.pauseSorter(true);
+                render.pauseSorter(true);
                 break;
             case KeyEvent.VK_SPACE:
-                if(panel.isSorting() || panel.isShuffling()) break;
+                if(render.isSorting() || render.isShuffling()) break;
 
-                panel.shuffle();
+                render.shuffle();
                 break;
             case KeyEvent.VK_S:
-                if(panel.getBlockSize() < 50) {
-                    if(!panel.isSorting() && !panel.isShuffling()) {
-                        panel.setBlockSize(1);
-                        panel.setLength(panel.getPadding());
-                        panel.createArray();
-                        panel.repaint();
+                if(render.getBlockSize() < 50) {
+                    if(!render.isSorting() && !render.isShuffling()) {
+                        render.setBlockSize(1);
+                        render.setLength(render.getPadding());
+                        render.createArray();
+                        render.repaint();
                     }
                 }
                 break;
             case KeyEvent.VK_W:
-                if(panel.getBlockSize() > 1) {
-                    if(!panel.isSorting() && !panel.isShuffling()) {
-                        panel.setBlockSize(-1);
-                        panel.setLength(panel.getPadding());
-                        panel.createArray();
-                        panel.repaint();
+                if(render.getBlockSize() > 1) {
+                    if(!render.isSorting() && !render.isShuffling()) {
+                        render.setBlockSize(-1);
+                        render.setLength(render.getPadding());
+                        render.createArray();
+                        render.repaint();
                     }
                 }
                 break;
             case KeyEvent.VK_A:
-                if(panel.getSorterIndex() == 0) break;
+                if(render.getSorterIndex() == 0) break;
 
-                panel.setSorterIndex((panel.getSorterIndex()-1) % panel.getNumOfAlgorithm());
+                render.setSorterIndex((render.getSorterIndex()-1) % render.getNumOfAlgorithm());
                 frame.updateTextArea();
                 break;
             case KeyEvent.VK_D:
-                if(panel.getSorterIndex() == panel.getNumOfAlgorithm()-1) break;
+                if(render.getSorterIndex() == render.getNumOfAlgorithm()-1) break;
                 
-                panel.setSorterIndex((panel.getSorterIndex()+1) % panel.getNumOfAlgorithm());
+                render.setSorterIndex((render.getSorterIndex()+1) % render.getNumOfAlgorithm());
                 frame.updateTextArea();
                 break;
             default:

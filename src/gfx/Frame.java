@@ -1,13 +1,23 @@
 package gfx;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class Frame extends JFrame {
     
-    private Panel panel;
+    private Renderer render;
     private JPanel control = new JPanel();
 
     private JLabel title;
@@ -17,15 +27,15 @@ public class Frame extends JFrame {
     private JSlider delaySlider;
 
     public Frame(String name, int windowSize) {
-        panel = new Panel(windowSize);
+        render = new Renderer(windowSize);
         setupPanel(windowSize);
         this.setTitle(name);
-        this.add(panel, BorderLayout.WEST);
+        this.add(render, BorderLayout.WEST);
         this.add(control, BorderLayout.EAST);
 
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.addKeyListener(new KeyHandler(this, panel));
+        this.addKeyListener(new KeyHandler(this, render));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -46,7 +56,7 @@ public class Frame extends JFrame {
                                 "Space - Shuffle the array\n" +
                                 "W - Increase array\'s length\n" +
                                 "S - Decrease array\'s length\n\n" +
-                                "Number of Algorithms: " + panel.getNumOfAlgorithm() + "\n" +
+                                "Number of Algorithms: " + render.getNumOfAlgorithm() + "\n" +
                                 "A - Previous Algorithm\n" +
                                 "D - Next Algorithm\n");
         keybind.setBackground(new Color(37, 37, 38));
@@ -64,7 +74,7 @@ public class Frame extends JFrame {
         sorting.setFocusable(false);
 
         currentDelay = new JTextField(12);
-        currentDelay.setText("Current delay: " + panel.getDelay() + " ms");
+        currentDelay.setText("Current delay: " + render.getDelay() + " ms");
         currentDelay.setHorizontalAlignment(JTextField.CENTER);
         currentDelay.setBackground(new Color(37, 37, 38));
         currentDelay.setForeground(Color.white);
@@ -73,12 +83,12 @@ public class Frame extends JFrame {
         currentDelay.setFocusable(false);
 
         delaySlider = new JSlider(0, 10);
-        delaySlider.setValue(panel.getDelay());
+        delaySlider.setValue(render.getDelay());
         delaySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                panel.setDelay(delaySlider.getValue());
-                currentDelay.setText("Current delay: " + panel.getDelay() + " ms");
+                render.setDelay(delaySlider.getValue());
+                currentDelay.setText("Current delay: " + render.getDelay() + " ms");
             }
         });
         delaySlider.setBackground(new Color(37, 37, 38));
@@ -95,11 +105,11 @@ public class Frame extends JFrame {
     public void updateTextArea() {
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < panel.getNumOfAlgorithm(); i++) {
-            sb.append((i+1) + " - " + panel.getSorterAtIndex(i).getName());
-            if(i != panel.getNumOfAlgorithm()-1) sb.append("\n");
+        for(int i = 0; i < render.getNumOfAlgorithm(); i++) {
+            sb.append((i+1) + " - " + render.getSorterAtIndex(i).getName());
+            if(i != render.getNumOfAlgorithm()-1) sb.append("\n");
         }
 
-        sorting.setText("Algorithms List (" + (panel.getSorterIndex()+1) + "):\n" + sb.toString());
+        sorting.setText("Algorithms List (" + (render.getSorterIndex()+1) + "):\n" + sb.toString());
     }
 }

@@ -1,11 +1,11 @@
 package algorithm;
 
-import gfx.Panel;
+import gfx.Renderer;
 
 public class InsertionSort extends Sort {
 
-    public InsertionSort(Panel panel, int delay) {
-        super(panel, delay);
+    public InsertionSort(Renderer render, int delay) {
+        super(render, delay);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class InsertionSort extends Sort {
             while(j >= 0 && arr[j] > key) {
                 this.checkingIndex = j+1;
                 swap(arr, j+1, j);
-                panel.repaint();
+                render.repaint();
                 j--;
                 Thread.sleep(this.delay);
             }

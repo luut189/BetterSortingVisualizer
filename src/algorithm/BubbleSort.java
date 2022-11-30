@@ -1,11 +1,11 @@
 package algorithm;
 
-import gfx.Panel;
+import gfx.Renderer;
 
 public class BubbleSort extends Sort {
 
-    public BubbleSort(Panel panel, int delay) {
-        super(panel, delay);
+    public BubbleSort(Renderer render, int delay) {
+        super(render, delay);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class BubbleSort extends Sort {
                     swap(arr, j, j+1);
                     isFlag = true;
                 }
-                panel.repaint();
+                render.repaint();
                 Thread.sleep(this.delay);
             }
             index++;

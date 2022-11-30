@@ -1,6 +1,13 @@
 package gfx;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.Random;
+
+import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 import algorithm.BubbleSort;
 import algorithm.InsertionSort;
@@ -8,10 +15,7 @@ import algorithm.MergeSort;
 import algorithm.SelectionSort;
 import algorithm.Sort;
 
-import java.awt.*;
-import java.util.Random;
-
-public class Panel extends JPanel {
+public class Renderer extends JPanel {
 
     private int width;
     private int height;
@@ -45,7 +49,7 @@ public class Panel extends JPanel {
 
     private SwingWorker<Void, Void> sorter;
 
-    public Panel(int windowSize) {
+    public Renderer(int windowSize) {
         this.width = windowSize;
         this.height = windowSize;
         this.padding = windowSize/10;

@@ -1,20 +1,20 @@
 package algorithm;
 
-import gfx.Panel;
+import gfx.Renderer;
 
 public class Sort {
     
     protected int searchingIndex;
     protected int checkingIndex;
 
-    protected Panel panel;
+    protected Renderer render;
     protected int delay;
 
-    public Sort(Panel panel, int delay) {
+    public Sort(Renderer render, int delay) {
         this.searchingIndex = -1;
         this.checkingIndex = -1;
         
-        this.panel = panel;
+        this.render = render;
         this.delay = delay;
     }
 

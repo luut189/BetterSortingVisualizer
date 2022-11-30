@@ -1,11 +1,11 @@
 package algorithm;
 
-import gfx.Panel;
+import gfx.Renderer;
 
 public class SelectionSort extends Sort {
 
-    public SelectionSort(Panel panel, int delay) {
-        super(panel, delay);
+    public SelectionSort(Renderer render, int delay) {
+        super(render, delay);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class SelectionSort extends Sort {
                 if(arr[min] > arr[j]) {
                     min = j;
                 }
-                panel.repaint();
+                render.repaint();
                 Thread.sleep(delay);
             }
             swap(arr, i, min);

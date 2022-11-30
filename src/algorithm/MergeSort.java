@@ -1,11 +1,11 @@
 package algorithm;
 
-import gfx.Panel;
+import gfx.Renderer;
 
 public class MergeSort extends Sort {
 
-    public MergeSort(Panel panel, int delay) {
-        super(panel, delay);
+    public MergeSort(Renderer render, int delay) {
+        super(render, delay);
     }
     
     @Override
@@ -53,7 +53,7 @@ public class MergeSort extends Sort {
                 j++;
             }
             k++;
-            panel.repaint();
+            render.repaint();
             Thread.sleep(delay);
         }
 
@@ -63,7 +63,7 @@ public class MergeSort extends Sort {
             arr[k] = leftArr[i];
             i++;
             k++;
-            panel.repaint();
+            render.repaint();
             Thread.sleep(delay);
         }
 
@@ -73,7 +73,7 @@ public class MergeSort extends Sort {
             arr[k] = rightArr[j];
             j++;
             k++;
-            panel.repaint();
+            render.repaint();
             Thread.sleep(delay);
         }
     }
