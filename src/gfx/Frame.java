@@ -63,8 +63,8 @@ public class Frame extends JFrame {
         sorting.setEditable(false);
         sorting.setFocusable(false);
 
-        currentDelay = new JTextField(10);
-        currentDelay.setText("Current delay: " + panel.getDelay());
+        currentDelay = new JTextField(12);
+        currentDelay.setText("Current delay: " + panel.getDelay() + " ms");
         currentDelay.setHorizontalAlignment(JTextField.CENTER);
         currentDelay.setBackground(new Color(37, 37, 38));
         currentDelay.setForeground(Color.white);
@@ -78,7 +78,7 @@ public class Frame extends JFrame {
             @Override
             public void stateChanged(ChangeEvent e) {
                 panel.setDelay(delaySlider.getValue());
-                currentDelay.setText("Current delay: " + panel.getDelay());
+                currentDelay.setText("Current delay: " + panel.getDelay() + " ms");
             }
         });
         delaySlider.setBackground(new Color(37, 37, 38));
