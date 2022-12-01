@@ -14,6 +14,7 @@ import algorithm.InsertionSort;
 import algorithm.MergeSort;
 import algorithm.SelectionSort;
 import algorithm.Sort;
+import sfx.Sound;
 
 public class Renderer extends JPanel {
 
@@ -39,12 +40,15 @@ public class Renderer extends JPanel {
 
     private int delay = 1;
 
-    private Random rand = new Random();
+    private boolean hasSound = false;
 
-    BubbleSort bubble = new BubbleSort(this, delay);
-    InsertionSort insertion = new InsertionSort(this, delay);
-    SelectionSort selection = new SelectionSort(this, delay);
-    MergeSort merge = new MergeSort(this, delay);
+    private Random rand = new Random();
+    private Sound player = new Sound();
+
+    BubbleSort bubble = new BubbleSort(this, player, hasSound, delay);
+    InsertionSort insertion = new InsertionSort(this, player, hasSound, delay);
+    SelectionSort selection = new SelectionSort(this, player, hasSound, delay);
+    MergeSort merge = new MergeSort(this, player, hasSound, delay);
     
     private int sorterIndex = 0;
     private Sort[] sortList = {bubble, insertion, selection, merge};
@@ -59,6 +63,14 @@ public class Renderer extends JPanel {
         
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
+
+        if(hasSound) {
+            try {
+                player.play("4C#", 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         createArray();
     }
@@ -115,14 +127,16 @@ public class Renderer extends JPanel {
     }
 
     public void finishColoring() {
+        int tone = sortList[sorterIndex].getTone(length);
         SwingWorker<Void, Void> coloring = new SwingWorker<Void,Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 colorIndex = 0;
                 while(colorIndex < length) {
+                    if(hasSound) player.play(arr[colorIndex]/tone, delay);
                     colorIndex++;
                     repaint();
-                    Thread.sleep(delay);
+                    if(!hasSound) Thread.sleep(delay);
                 }
                 return null;
             }
@@ -138,11 +152,13 @@ public class Renderer extends JPanel {
 
     public void shuffle() {
         SwingWorker<Void, Void> shuffler = new SwingWorker<Void,Void>() {
+            int tone = sortList[sorterIndex].getTone(length);
             @Override
             protected Void doInBackground() throws Exception {
                 isShuffling = true;
                 for(int i = 0; i < length; i++) {
                     int randomIndex = rand.nextInt(length);
+                    if(hasSound) player.play(arr[randomIndex]/tone, delay);
                     int temp = arr[randomIndex];
                     arr[randomIndex] = arr[i];
                     arr[i] = temp;
@@ -151,7 +167,7 @@ public class Renderer extends JPanel {
                     shuffleRandomIndex = randomIndex;
 
                     repaint();
-                    Thread.sleep(delay);
+                    if(!hasSound) Thread.sleep(delay);
                 }
                 return null;
             }
@@ -228,12 +244,28 @@ public class Renderer extends JPanel {
         }
     }
 
-    public boolean isUseRandomNumber() {
-        return useRandomNumber;
+    public boolean hasSound() {
+        return this.hasSound;
     }
 
-    public void setUseRandomNumber(boolean randomNumber) {
-        this.useRandomNumber = randomNumber;
+    public void setHasSound(boolean hasSound) {
+        try {
+            player.play("4A", 10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.hasSound = hasSound;
+        for(int i = 0; i < getNumOfAlgorithm(); i++) {
+            sortList[i].setHasSound(hasSound);
+        }
+    }
+
+    public boolean isUseRandomNumber() {
+        return this.useRandomNumber;
+    }
+
+    public void setUseRandomNumber(boolean useRandomNumber) {
+        this.useRandomNumber = useRandomNumber;
     }
 
     public void setLength(int padding) {

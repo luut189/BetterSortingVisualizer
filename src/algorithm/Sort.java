@@ -1,6 +1,7 @@
 package algorithm;
 
 import gfx.Renderer;
+import sfx.Sound;
 
 public class Sort {
     
@@ -10,12 +11,28 @@ public class Sort {
     protected Renderer render;
     protected int delay;
 
-    public Sort(Renderer render, int delay) {
+    protected boolean hasSound;
+
+    protected Sound player;
+    protected int tone;
+
+    public Sort(Renderer render, Sound player, boolean hasSound, int delay) {
         this.searchingIndex = -1;
         this.checkingIndex = -1;
         
         this.render = render;
         this.delay = delay;
+
+        this.player = player;
+        this.hasSound = hasSound;
+    }
+
+    public void setHasSound(boolean hasSound) {
+        this.hasSound = hasSound;
+    }
+
+    public int getTone(int length) {
+        return length/27;
     }
 
     public void setDelay(int delay) {

@@ -1,15 +1,17 @@
 package algorithm;
 
 import gfx.Renderer;
+import sfx.Sound;
 
 public class MergeSort extends Sort {
 
-    public MergeSort(Renderer render, int delay) {
-        super(render, delay);
+    public MergeSort(Renderer render, Sound player, boolean hasSound, int delay) {
+        super(render, player, hasSound, delay);
     }
     
     @Override
     public void sort(int[] arr, int length) throws InterruptedException {
+        tone = getTone(length);
         mergeSort(arr, 0, length - 1);
     }
 
@@ -44,37 +46,41 @@ public class MergeSort extends Sort {
         while(i < leftLength && j < rightLength) {
             checkingIndex = k;
             if(leftArr[i] < rightArr[j]) {
+                if(hasSound) player.play(leftArr[i]/tone, delay);
                 searchingIndex = i + k;
                 arr[k] = leftArr[i];
                 i++;
             } else {
+                if(hasSound) player.play(rightArr[j]/tone, delay);
                 searchingIndex = j + k;
                 arr[k] = rightArr[j];
                 j++;
             }
             k++;
             render.repaint();
-            Thread.sleep(delay);
+            if(!hasSound) Thread.sleep(delay);
         }
 
         while(i < leftLength) {
+            if(hasSound) player.play(leftArr[i]/tone, delay);
             checkingIndex = k;
             searchingIndex = i + k;
             arr[k] = leftArr[i];
             i++;
             k++;
             render.repaint();
-            Thread.sleep(delay);
+            if(!hasSound) Thread.sleep(delay);
         }
 
         while(j < rightLength) {
+            if(hasSound) player.play(rightArr[j]/tone, delay);
             checkingIndex = k;
             searchingIndex = j + k;
             arr[k] = rightArr[j];
             j++;
             k++;
             render.repaint();
-            Thread.sleep(delay);
+            if(!hasSound) Thread.sleep(delay);
         }
     }
 

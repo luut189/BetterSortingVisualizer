@@ -1,15 +1,17 @@
 package algorithm;
 
 import gfx.Renderer;
+import sfx.Sound;
 
 public class InsertionSort extends Sort {
 
-    public InsertionSort(Renderer render, int delay) {
-        super(render, delay);
+    public InsertionSort(Renderer render, Sound player, boolean hasSound, int delay) {
+        super(render, player, hasSound, delay);
     }
 
     @Override
     public void sort(int[] arr, int length) throws InterruptedException {
+        tone = getTone(length);
         for(int i = 1; i < length; i++) {
             int key = arr[i];
             int j = i - 1;
@@ -17,11 +19,12 @@ public class InsertionSort extends Sort {
             this.searchingIndex = i;
 
             while(j >= 0 && arr[j] > key) {
+                if(hasSound) player.play(arr[j]/tone, delay);
                 this.checkingIndex = j+1;
                 swap(arr, j+1, j);
                 render.repaint();
                 j--;
-                Thread.sleep(this.delay);
+                if(!hasSound) Thread.sleep(this.delay);
             }
         }
     }
