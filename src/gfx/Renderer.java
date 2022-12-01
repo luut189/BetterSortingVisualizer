@@ -93,6 +93,41 @@ public class Renderer extends JPanel {
         draw(g);
     }
 
+    public void draw(Graphics g) {
+        /*
+        for(int i = 0; i < width/size; i++) {
+            g.drawLine(0, i*size, width, i*size);
+        }
+        for(int i = 0; i < height/size; i++) {
+            g.drawLine(i*size, 0, i*size, height);
+        }
+        */
+        Color[] grad = {new Color(130, 130, 130), new Color(168, 168, 168), new Color(206, 206, 206)};
+        Color[] gradGreen = {new Color(48, 99, 61), new Color(67, 138, 85), new Color(85, 176, 108)};
+
+        for(int i = 0; i < length; i++) {
+            g.setColor(grad[i%3]);
+            if(isShuffling) {
+                if(i == currentShuffleIndex) {
+                    g.setColor(Color.cyan);
+                } else if(i == shuffleRandomIndex) {
+                    g.setColor(Color.magenta);
+                }
+            }
+            if(isSorting) {
+                if(i == sortList[sorterIndex].getSearchingIndex()) {
+                    g.setColor(Color.green);
+                } else if(i == sortList[sorterIndex].getCheckingIndex()) {
+                    g.setColor(Color.red);
+                }
+            }
+            if(i < colorIndex + 1 && checkSort(arr)) {
+                g.setColor(gradGreen[i%3]);
+            }
+            g.fillRect(i*size+(padding/2), height-arr[i]*size, size, size*arr[i]);
+        }
+    }
+
     public void pauseSorter(boolean mayInterruptIfRunning) {
         if(sorter == null) return;
         
@@ -182,41 +217,6 @@ public class Renderer extends JPanel {
             }
         };
         shuffler.execute();
-    }
-
-    public void draw(Graphics g) {
-        /*
-        for(int i = 0; i < width/size; i++) {
-            g.drawLine(0, i*size, width, i*size);
-        }
-        for(int i = 0; i < height/size; i++) {
-            g.drawLine(i*size, 0, i*size, height);
-        }
-        */
-        Color[] grad = {new Color(130, 130, 130), new Color(168, 168, 168), new Color(206, 206, 206)};
-        Color[] gradGreen = {new Color(48, 99, 61), new Color(67, 138, 85), new Color(85, 176, 108)};
-
-        for(int i = 0; i < length; i++) {
-            g.setColor(grad[i%3]);
-            if(isShuffling) {
-                if(i == currentShuffleIndex) {
-                    g.setColor(Color.cyan);
-                } else if(i == shuffleRandomIndex) {
-                    g.setColor(Color.magenta);
-                }
-            }
-            if(isSorting) {
-                if(i == sortList[sorterIndex].getSearchingIndex()) {
-                    g.setColor(Color.green);
-                } else if(i == sortList[sorterIndex].getCheckingIndex()) {
-                    g.setColor(Color.red);
-                }
-            }
-            if(i < colorIndex + 1 && checkSort(arr)) {
-                g.setColor(gradGreen[i%3]);
-            }
-            g.fillRect(i*size+(padding/2), height-arr[i]*size, size, size*arr[i]);
-        }
     }
 
     public boolean checkSort(int[] arr) {
