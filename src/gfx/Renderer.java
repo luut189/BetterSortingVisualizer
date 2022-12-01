@@ -78,7 +78,7 @@ public class Renderer extends JPanel {
     public void createArray() {
         arr = new int[length];
         for(int i = 0; i < length; i++) {
-            arr[i] = this.useRandomNumber ? rand.nextInt(length) : i;
+            arr[i] = this.useRandomNumber ? rand.nextInt(length-1)+1 : i+1;
         }
         for(int i = 0; i < length; i++) {
             int randomIndex = rand.nextInt(length);
