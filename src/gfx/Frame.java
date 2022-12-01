@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,6 +28,8 @@ public class Frame extends JFrame {
 
     private JTextField currentDelay;
     private JSlider delaySlider;
+
+    private JCheckBox useRandomNumber;
 
     public Frame(String name, int windowSize) {
         render = new Renderer(windowSize);
@@ -65,6 +70,21 @@ public class Frame extends JFrame {
         keybind.setEditable(false);
         keybind.setFocusable(false);
 
+        useRandomNumber = new JCheckBox("Use random number");
+        useRandomNumber.setSelected(render.isUseRandomNumber());
+        useRandomNumber.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                render.setUseRandomNumber(useRandomNumber.isSelected());
+                render.createArray();
+                render.repaint();
+            }
+        });
+        useRandomNumber.setBackground(new Color(37, 37, 38));
+        useRandomNumber.setForeground(Color.white);
+        useRandomNumber.setFont(new Font("Nunito", Font.BOLD, 12));
+        useRandomNumber.setFocusable(false);
+
         sorting = new JTextArea();
         updateTextArea();
         sorting.setBackground(new Color(37, 37, 38));
@@ -97,6 +117,7 @@ public class Frame extends JFrame {
 
         control.add(title, BorderLayout.CENTER);
         control.add(keybind, BorderLayout.CENTER);
+        control.add(useRandomNumber, BorderLayout.CENTER);
         control.add(sorting, BorderLayout.CENTER);
         control.add(currentDelay, BorderLayout.CENTER);
         control.add(delaySlider, BorderLayout.CENTER);

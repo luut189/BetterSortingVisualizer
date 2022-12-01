@@ -28,6 +28,8 @@ public class Renderer extends JPanel {
 
     private int[] arr;
 
+    private boolean useRandomNumber = false;
+
     private boolean isSorting = false;
     private boolean isShuffling = false;
 
@@ -64,9 +66,14 @@ public class Renderer extends JPanel {
     public void createArray() {
         arr = new int[length];
         for(int i = 0; i < length; i++) {
-            arr[i] = i;
+            arr[i] = this.useRandomNumber ? rand.nextInt(length) : i;
         }
-        repaint();
+        for(int i = 0; i < length; i++) {
+            int randomIndex = rand.nextInt(length);
+            int temp = arr[randomIndex];
+            arr[randomIndex] = arr[i];
+            arr[i] = temp;
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -134,8 +141,8 @@ public class Renderer extends JPanel {
             @Override
             protected Void doInBackground() throws Exception {
                 isShuffling = true;
-                for(int i = 0; i < arr.length; i++) {
-                    int randomIndex = rand.nextInt(arr.length);
+                for(int i = 0; i < length; i++) {
+                    int randomIndex = rand.nextInt(length);
                     int temp = arr[randomIndex];
                     arr[randomIndex] = arr[i];
                     arr[i] = temp;
@@ -219,6 +226,14 @@ public class Renderer extends JPanel {
         for(int i = 0; i < getNumOfAlgorithm(); i++) {
             sortList[i].setDelay(delay);
         }
+    }
+
+    public boolean isUseRandomNumber() {
+        return useRandomNumber;
+    }
+
+    public void setUseRandomNumber(boolean randomNumber) {
+        this.useRandomNumber = randomNumber;
     }
 
     public void setLength(int padding) {
