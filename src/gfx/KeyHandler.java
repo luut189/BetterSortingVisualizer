@@ -30,6 +30,8 @@ public class KeyHandler extends KeyAdapter {
                 render.shuffle();
                 break;
             case KeyEvent.VK_S:
+                if(render.isSorting() || render.isShuffling()) break;
+
                 if(render.getBlockSize() < 50) {
                     if(!render.isSorting() && !render.isShuffling()) {
                         render.setBlockSize(1);
@@ -40,6 +42,8 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
             case KeyEvent.VK_W:
+                if(render.isSorting() || render.isShuffling()) break;
+
                 if(render.getBlockSize() > 1) {
                     if(!render.isSorting() && !render.isShuffling()) {
                         render.setBlockSize(-1);
@@ -50,12 +54,14 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
             case KeyEvent.VK_A:
+                if(render.isSorting()) break;
                 if(render.getSorterIndex() == 0) break;
 
                 render.setSorterIndex((render.getSorterIndex()-1) % render.getNumOfAlgorithm());
                 frame.updateTextArea();
                 break;
             case KeyEvent.VK_D:
+                if(render.isSorting()) break;
                 if(render.getSorterIndex() == render.getNumOfAlgorithm()-1) break;
                 
                 render.setSorterIndex((render.getSorterIndex()+1) % render.getNumOfAlgorithm());
