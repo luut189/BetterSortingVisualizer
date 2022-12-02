@@ -45,6 +45,10 @@ public class Renderer extends JPanel {
     private Random rand = new Random();
     private Sound player = new Sound();
 
+    public Sound getPlayer() {
+        return player;
+    }
+
     BubbleSort bubble = new BubbleSort(this, player, hasSound, delay);
     InsertionSort insertion = new InsertionSort(this, player, hasSound, delay);
     SelectionSort selection = new SelectionSort(this, player, hasSound, delay);
@@ -129,6 +133,8 @@ public class Renderer extends JPanel {
     }
 
     public void pauseSorter(boolean mayInterruptIfRunning) {
+        player.closeSynth();
+
         if(sorter == null) return;
         
         sorter.cancel(mayInterruptIfRunning);

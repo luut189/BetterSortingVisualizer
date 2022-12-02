@@ -19,6 +19,7 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_R:
                 if(render.isSorting() || render.isShuffling()) break;
 
+                render.getPlayer().resumeSynth();
                 render.sort();
                 break;
             case KeyEvent.VK_Q:

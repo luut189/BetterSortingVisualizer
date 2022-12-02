@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.MidiChannel;
 
@@ -22,11 +23,12 @@ public class Sound {
 	private MidiChannel[] channels;
 	private int INSTRUMENT = 0; // 0 is a piano, 9 is percussion, other channels are for other instruments
 	private int VOLUME = 80; // between 0 et 127
+	private Synthesizer synth;
 	
 	public Sound() {
 		try {
 			// * Open a synthesizer
-			Synthesizer synth = MidiSystem.getSynthesizer();
+			synth = MidiSystem.getSynthesizer();
 			synth.open();
 			channels = synth.getChannels();
 		}
@@ -34,6 +36,18 @@ public class Sound {
 			throw new RuntimeException(e);
 		}
     }
+
+	public void resumeSynth() {
+		try {
+			this.synth.open();
+		} catch (MidiUnavailableException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void closeSynth() {
+		this.synth.close();
+	}
 	
 	/**
 	 * Plays the given note for the given duration
