@@ -36,7 +36,7 @@ public class KeyHandler extends KeyAdapter {
                 if(render.getBlockSize() < 50) {
                     if(!render.isSorting() && !render.isShuffling()) {
                         render.setBlockSize(1);
-                        render.setLength(render.getPadding());
+                        render.setLength(render.getPadding(), true);
                         render.createArray();
                         render.repaint();
                     }
@@ -48,7 +48,7 @@ public class KeyHandler extends KeyAdapter {
                 if(render.getBlockSize() > 1) {
                     if(!render.isSorting() && !render.isShuffling()) {
                         render.setBlockSize(-1);
-                        render.setLength(render.getPadding());
+                        render.setLength(render.getPadding(), false);
                         render.createArray();
                         render.repaint();
                     }

@@ -25,7 +25,7 @@ public class Renderer extends JPanel {
 
     private int size = 10;
 
-    private int length;
+    private int length = 0;
 
     private int[] arr;
 
@@ -63,7 +63,7 @@ public class Renderer extends JPanel {
         this.width = windowSize;
         this.height = windowSize;
         this.padding = windowSize/10;
-        setLength(padding);
+        setLength(padding, true);
         
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
@@ -128,7 +128,7 @@ public class Renderer extends JPanel {
             if(i < colorIndex + 1 && checkSort(arr)) {
                 g.setColor(gradGreen[i%3]);
             }
-            g.fillRect(i*size+(padding/2), height-arr[i]*size, size, size*arr[i]);
+            g.fillRect(i*size+(padding/2), height-arr[i]*size, size, arr[i]*size);
         }
     }
 
@@ -274,8 +274,17 @@ public class Renderer extends JPanel {
         this.useRandomNumber = useRandomNumber;
     }
 
-    public void setLength(int padding) {
-        this.length = (width-padding)/size;
+    public void setLength(int padding, boolean isUp) {
+        int oldLength = this.length;
+        int newLength = (width-padding)/size;
+
+        while(oldLength == newLength) {
+            oldLength = newLength;
+            newLength = (width-padding)/size;
+            size += isUp ? 1 : -1;
+        }
+        
+        this.length = newLength;
     }
 
     public int getPadding() {
