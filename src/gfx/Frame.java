@@ -31,6 +31,10 @@ public class Frame extends JFrame {
 
     private JCheckBox useRandomNumber, useSound;
 
+    public JCheckBox getSoundCheckBox() {
+        return this.useSound;
+    }
+
     public Frame(String name, int windowSize) {
         render = new Renderer(windowSize);
         setupPanel(windowSize);
@@ -59,6 +63,7 @@ public class Frame extends JFrame {
         keybind = new JTextArea("R - Start sorting\n" +
                                 "Q - Pause the sorting process\n" +
                                 "Space - Shuffle the array\n" +
+                                "E - Enable/Disable sound\n\n" +
                                 "W - Increase array\'s length\n" +
                                 "S - Decrease array\'s length\n\n" +
                                 "Number of Algorithms: " + render.getNumOfAlgorithm() + "\n" +
@@ -114,6 +119,7 @@ public class Frame extends JFrame {
         useRandomNumber.setForeground(Color.white);
         useRandomNumber.setFont(new Font("Nunito", Font.BOLD, 12));
         useRandomNumber.setFocusable(false);
+
         useSound = new JCheckBox("Sound");
         useSound.setSelected(render.hasSound());
         useSound.addActionListener(new ActionListener() {

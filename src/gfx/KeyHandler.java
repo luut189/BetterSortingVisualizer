@@ -28,7 +28,12 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_SPACE:
                 if(render.isSorting() || render.isShuffling()) break;
 
+                render.getPlayer().resumeSynth();
                 render.shuffle();
+                break;
+            case KeyEvent.VK_E:
+                render.setHasSound(!render.hasSound());
+                frame.getSoundCheckBox().setSelected(render.hasSound());
                 break;
             case KeyEvent.VK_S:
                 if(render.isSorting() || render.isShuffling()) break;
