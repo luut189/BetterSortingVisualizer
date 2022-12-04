@@ -61,7 +61,7 @@ public class Renderer extends JPanel {
     private int sorterIndex = 0;
     private Sort[] sortList = {bubble, insertion, selection, merge, quick};
 
-    private SwingWorker<Void, Void> sorter;
+    private SwingWorker<Void, Void> sorter, shuffler, coloring;
 
     public Renderer(int windowSize) {
         this.width = windowSize;
@@ -143,9 +143,17 @@ public class Renderer extends JPanel {
     public void pauseSorter(boolean mayInterruptIfRunning) {
         player.closeSynth();
 
-        if(sorter == null) return;
-        
-        sorter.cancel(mayInterruptIfRunning);
+        if(sorter != null) {
+            sorter.cancel(mayInterruptIfRunning);
+        }
+
+        if(shuffler != null) {
+         shuffler.cancel(mayInterruptIfRunning);
+        }
+
+        if(coloring != null) {
+            coloring.cancel(mayInterruptIfRunning);
+        }
     }
 
     public void sort() {
@@ -169,17 +177,15 @@ public class Renderer extends JPanel {
                     finishColoring();
                 }
                 isSorting = false;
-                colorIndex = 0;
             }
         };
         sorter.execute();
     }
 
     public void finishColoring() {
-        SwingWorker<Void, Void> coloring = new SwingWorker<Void,Void>() {
+        coloring = new SwingWorker<Void,Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                colorIndex = 0;
                 while(colorIndex < length) {
                     if(hasSound) player.play(arr[colorIndex], delay, largestValue);
                     colorIndex++;
@@ -192,18 +198,18 @@ public class Renderer extends JPanel {
             @Override
             protected void done() {
                 super.done();
-                colorIndex = -1;
+                if(!isCancelled()) colorIndex = -1;
             }
         };
         coloring.execute();
     }
 
     public void shuffle() {
-        SwingWorker<Void, Void> shuffler = new SwingWorker<Void,Void>() {
+        shuffler = new SwingWorker<Void,Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 isShuffling = true;
-                for(int i = 0; i < length; i++) {
+                for(int i = currentShuffleIndex != -1 ? currentShuffleIndex : 0; i < length; i++) {
                     int randomIndex = rand.nextInt(length);
                     if(hasSound) player.play(arr[randomIndex], delay, largestValue);
                     int temp = arr[randomIndex];
@@ -223,9 +229,11 @@ public class Renderer extends JPanel {
             protected void done() {
                 super.done();
                 isShuffling = false;
-                currentShuffleIndex = -1;
-                shuffleRandomIndex = -1;
-                repaint();
+                if(!isCancelled()) {
+                    currentShuffleIndex = -1;
+                    shuffleRandomIndex = -1;
+                    repaint();
+                }
             }
         };
         shuffler.execute();
