@@ -12,6 +12,7 @@ import javax.swing.SwingWorker;
 import algorithm.BubbleSort;
 import algorithm.InsertionSort;
 import algorithm.MergeSort;
+import algorithm.QuickSort;
 import algorithm.SelectionSort;
 import algorithm.Sort;
 import sfx.Sound;
@@ -55,9 +56,10 @@ public class Renderer extends JPanel {
     InsertionSort insertion = new InsertionSort(this, player, hasSound, delay);
     SelectionSort selection = new SelectionSort(this, player, hasSound, delay);
     MergeSort merge = new MergeSort(this, player, hasSound, delay);
+    QuickSort quick = new QuickSort(this, player, hasSound, delay);
     
     private int sorterIndex = 0;
-    private Sort[] sortList = {bubble, insertion, selection, merge};
+    private Sort[] sortList = {bubble, insertion, selection, merge, quick};
 
     private SwingWorker<Void, Void> sorter;
 
