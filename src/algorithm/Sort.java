@@ -3,7 +3,7 @@ package algorithm;
 import gfx.Renderer;
 import sfx.Sound;
 
-public class Sort {
+public abstract class Sort {
     
     protected int searchingIndex;
     protected int checkingIndex;
@@ -47,9 +47,7 @@ public class Sort {
         return arr;
     }
 
-    public void sort(int[] arr, int length) throws InterruptedException {
-        
-    }
+    public abstract void sort(int[] arr, int length) throws InterruptedException;
 
     public void done() {
         searchingIndex = -1;
@@ -72,7 +70,5 @@ public class Sort {
         this.checkingIndex = checkingIndex;
     }
 
-    public String getName() {
-        return "";
-    }
+    public abstract String getName();
 }
