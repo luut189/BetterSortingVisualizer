@@ -8,13 +8,14 @@ public class Sort {
     protected int searchingIndex;
     protected int checkingIndex;
 
+    protected int largestValue;
+
     protected Renderer render;
     protected int delay;
 
     protected boolean hasSound;
 
     protected Sound player;
-    protected int tone;
 
     public Sort(Renderer render, Sound player, boolean hasSound, int delay) {
         this.searchingIndex = -1;
@@ -27,12 +28,12 @@ public class Sort {
         this.hasSound = hasSound;
     }
 
-    public void setHasSound(boolean hasSound) {
-        this.hasSound = hasSound;
+    public void setLargestValue(int value) {
+        this.largestValue = value;
     }
 
-    public int getTone(int length) {
-        return length/27;
+    public void setHasSound(boolean hasSound) {
+        this.hasSound = hasSound;
     }
 
     public void setDelay(int delay) {

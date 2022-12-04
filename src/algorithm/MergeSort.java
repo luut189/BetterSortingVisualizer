@@ -11,7 +11,6 @@ public class MergeSort extends Sort {
     
     @Override
     public void sort(int[] arr, int length) throws InterruptedException {
-        tone = getTone(length);
         mergeSort(arr, 0, length - 1);
     }
 
@@ -46,12 +45,12 @@ public class MergeSort extends Sort {
         while(i < leftLength && j < rightLength) {
             checkingIndex = k;
             if(leftArr[i] < rightArr[j]) {
-                if(hasSound) player.play(leftArr[i]/tone, delay);
+                if(hasSound) player.play(leftArr[i], delay, largestValue);
                 searchingIndex = i + k;
                 arr[k] = leftArr[i];
                 i++;
             } else {
-                if(hasSound) player.play(rightArr[j]/tone, delay);
+                if(hasSound) player.play(rightArr[j], delay, largestValue);
                 searchingIndex = j + k;
                 arr[k] = rightArr[j];
                 j++;
@@ -62,7 +61,7 @@ public class MergeSort extends Sort {
         }
 
         while(i < leftLength) {
-            if(hasSound) player.play(leftArr[i]/tone, delay);
+            if(hasSound) player.play(leftArr[i], delay, largestValue);
             checkingIndex = k;
             searchingIndex = i + k;
             arr[k] = leftArr[i];
@@ -73,7 +72,7 @@ public class MergeSort extends Sort {
         }
 
         while(j < rightLength) {
-            if(hasSound) player.play(rightArr[j]/tone, delay);
+            if(hasSound) player.play(rightArr[j], delay, largestValue);
             checkingIndex = k;
             searchingIndex = j + k;
             arr[k] = rightArr[j];

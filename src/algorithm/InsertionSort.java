@@ -11,7 +11,6 @@ public class InsertionSort extends Sort {
 
     @Override
     public void sort(int[] arr, int length) throws InterruptedException {
-        tone = getTone(length);
         for(int i = 1; i < length; i++) {
             int key = arr[i];
             int j = i - 1;
@@ -19,7 +18,7 @@ public class InsertionSort extends Sort {
             this.searchingIndex = i;
 
             while(j >= 0 && arr[j] > key) {
-                if(hasSound) player.play(arr[j]/tone, delay);
+                if(hasSound) player.play(arr[j], delay, largestValue);
                 this.checkingIndex = j+1;
                 swap(arr, j+1, j);
                 render.repaint();

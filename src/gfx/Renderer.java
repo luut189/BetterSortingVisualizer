@@ -29,6 +29,8 @@ public class Renderer extends JPanel {
 
     private int[] arr;
 
+    private int largestValue = 0;
+
     private boolean useRandomNumber = false;
 
     private boolean isSorting = false;
@@ -83,6 +85,10 @@ public class Renderer extends JPanel {
         arr = new int[length];
         for(int i = 0; i < length; i++) {
             arr[i] = this.useRandomNumber ? rand.nextInt(length-1)+1 : i+1;
+            largestValue = Math.max(largestValue, arr[i]);
+        }
+        for(int i = 0; i < getNumOfAlgorithm(); i++) {
+            sortList[i].setLargestValue(largestValue);
         }
         for(int i = 0; i < length; i++) {
             int randomIndex = rand.nextInt(length);
@@ -168,13 +174,12 @@ public class Renderer extends JPanel {
     }
 
     public void finishColoring() {
-        int tone = sortList[sorterIndex].getTone(length);
         SwingWorker<Void, Void> coloring = new SwingWorker<Void,Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 colorIndex = 0;
                 while(colorIndex < length) {
-                    if(hasSound) player.play(arr[colorIndex]/tone, delay);
+                    if(hasSound) player.play(arr[colorIndex], delay, largestValue);
                     colorIndex++;
                     repaint();
                     if(!hasSound) Thread.sleep(delay);
@@ -193,13 +198,12 @@ public class Renderer extends JPanel {
 
     public void shuffle() {
         SwingWorker<Void, Void> shuffler = new SwingWorker<Void,Void>() {
-            int tone = sortList[sorterIndex].getTone(length);
             @Override
             protected Void doInBackground() throws Exception {
                 isShuffling = true;
                 for(int i = 0; i < length; i++) {
                     int randomIndex = rand.nextInt(length);
-                    if(hasSound) player.play(arr[randomIndex]/tone, delay);
+                    if(hasSound) player.play(arr[randomIndex], delay, largestValue);
                     int temp = arr[randomIndex];
                     arr[randomIndex] = arr[i];
                     arr[i] = temp;
@@ -255,6 +259,7 @@ public class Renderer extends JPanel {
     }
 
     public void setHasSound(boolean hasSound) {
+        player.resumeSynth();
         try {
             player.play("4A", 10);
         } catch (InterruptedException e) {

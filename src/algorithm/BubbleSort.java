@@ -11,14 +11,13 @@ public class BubbleSort extends Sort {
 
     @Override
     public void sort(int[] arr, int length) throws InterruptedException {
-        tone = getTone(length);
         int index = 0;
         while(true) {
             boolean isFlag = false;
             for(int j = 0; j < length-index-1; j++) {
                 searchingIndex = j;
                 checkingIndex = j+1;
-                if(hasSound) player.play(arr[j]/tone, delay);
+                if(hasSound) player.play(arr[j], delay, largestValue);
                 if(arr[j] > arr[j+1]) {
                     swap(arr, j, j+1);
                     isFlag = true;

@@ -11,13 +11,12 @@ public class SelectionSort extends Sort {
 
     @Override
     public void sort(int[] arr, int length) throws InterruptedException {
-        tone = getTone(length);
         for(int i = 0; i < length; i++) {
             int min = i;
             this.searchingIndex = min;
             for(int j = i + 1; j < length; j++) {
                 this.checkingIndex = j;
-                if(hasSound) player.play(arr[j]/tone, delay);
+                if(hasSound) player.play(arr[j], delay, largestValue);
                 if(arr[min] > arr[j]) {
                     min = j;
                 }
