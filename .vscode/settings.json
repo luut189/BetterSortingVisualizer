@@ -4,6 +4,8 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
+    
+    "java.project.exportJar.targetPath": "${workspaceFolder}/build/${workspaceFolderBasename}.jar",
 
     "code-runner.executorMap": {
         "java": "cd \"$workspaceRoot\" && cd src && run App"
