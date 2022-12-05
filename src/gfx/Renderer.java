@@ -186,6 +186,7 @@ public class Renderer extends JPanel {
         coloring = new SwingWorker<Void,Void>() {
             @Override
             protected Void doInBackground() throws Exception {
+                colorIndex = colorIndex == -1 ? 0 : colorIndex;
                 while(colorIndex < length) {
                     if(hasSound) player.play(arr[colorIndex], delay, largestValue);
                     colorIndex++;
