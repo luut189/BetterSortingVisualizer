@@ -62,17 +62,17 @@ Meanwhile, the compiled output files will be generated in the `bin` folder and i
 
 ## TODO
 
-- Adding more sorting algorithms:
+-  [ ] Adding more sorting algorithms:
 
-    - `Heap Sort`
+    - [ ] `Heap Sort`
 
-    - `Radix Sort`
+    - [ ] `Radix Sort`
 
-    - `...`
+    - [ ] `...`
 
-- Refining the sound effect
+- [ ] Refining the sound effect
 
-- Actually implementing a function for **< 1 ms** delay, the current method:
+- [ ] Actually implementing a function for **< 1 ms** delay, the current method:
 
 ```java
 public void sleep(long durationInNs) {
